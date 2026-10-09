@@ -1,0 +1,13 @@
+node_modules/
+.env
+dist/
+*.log
+
+# backend
+backend/internships.db
+backend/internships.db-journal
+backend/internships.db-wal
+backend/internships.db-shm
+backend/config.env
+backend/linkedin-session.json
+backend/data/

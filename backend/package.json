@@ -1,0 +1,37 @@
+{
+  "name": "intern-scout-backend",
+  "version": "1.0.0",
+  "description": "Scouts tech internships from LinkedIn, InternSG, and company career pages",
+  "license": "ISC",
+  "type": "commonjs",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "scrape:all": "node scheduler.js",
+    "scrape:internsg": "node scrapers/internsg.js",
+    "scrape:linkedin": "node scrapers/linkedin.js",
+    "scrape:linkedin:login": "node scrapers/linkedin-login.js",
+    "scrape:careers": "node scrapers/career-discovery.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "playwright": "^1.49.1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "data/*",
+      "linkedin-session.json"
+    ]
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
