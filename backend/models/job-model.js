@@ -1,9 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 const { scoreJob } = require("../matching/score");
+const { DATA_DIR } = require("../config/env");
 
 // Jobs are stored in a plain JSON file (no database needed)
-const DATA_FILE = path.join(__dirname, "..", "data", "jobs.json");
+const DATA_FILE = path.join(DATA_DIR, "jobs.json");
 
 function load() {
   try {

@@ -1,4 +1,4 @@
-require("../config/env");
+const { SESSION_PATH } = require("../config/env");
 const { chromium } = require("playwright");
 const path = require("path");
 const fs = require("fs");
@@ -6,7 +6,6 @@ const { runStandalone } = require("../config/db");
 const Job = require("../models/job-model");
 const { matchTechKeywords } = require("./keywords");
 
-const SESSION_PATH = path.join(__dirname, "..", "linkedin-session.json");
 
 const KEYWORDS = (process.env.LINKEDIN_SEARCH_KEYWORDS || "software engineer intern")
   .split(",").map((s) => s.trim()).filter(Boolean);

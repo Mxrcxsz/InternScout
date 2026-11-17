@@ -94,6 +94,24 @@ Opens the dashboard at `http://localhost:5173`, pointed at the backend API.
   machine. Set `FRONTEND_ORIGIN` to the Vercel URL (comma-separate multiple
   origins) so CORS allows the dashboard.
 
+### Backend on Render
+
+`render.yaml` + `backend/Dockerfile` set it up (Playwright image, Singapore
+region, 1 GB disk at `/data` for `jobs.json` / `scheduler.json`).
+
+1. Render dashboard → **New → Blueprint** → pick this repo → fill in
+   `FRONTEND_ORIGIN` and `SERPER_API_KEY` → Apply.
+2. Service → **Environment → Secret Files** → add `linkedin-session.json`
+   with the contents of your local `backend/linkedin-session.json` (create it
+   with `npm run scrape:linkedin:login` on your machine; redo when it expires).
+3. Copy the service URL (`https://intern-scout-api.onrender.com`) into
+   Vercel's `VITE_API_URL` and redeploy the frontend.
+4. Optional: upload your existing jobs by copying `backend/data/jobs.json`
+   to `/data/jobs.json` via the service's Shell tab, or just hit "Refresh".
+
+`DATA_DIR` and `LINKEDIN_SESSION_PATH` override where data and the session
+live; locally they default to `backend/data` and `backend/linkedin-session.json`.
+
 ## Next: Telegram bot
 
 Once this is running and you're happy with the scrape quality, the natural

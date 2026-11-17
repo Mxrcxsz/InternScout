@@ -1,4 +1,4 @@
-require("./config/env");
+const { DATA_DIR } = require("./config/env");
 const fs = require("fs");
 const path = require("path");
 const { runStandalone } = require("./config/db");
@@ -7,7 +7,7 @@ const { scrapeLinkedIn } = require("./scrapers/linkedin");
 const { scrapeCareerPages } = require("./scrapers/career-discovery");
 
 // Refresh settings + the outcome of the last run, kept across restarts
-const STATE_FILE = path.join(__dirname, "data", "scheduler.json");
+const STATE_FILE = path.join(DATA_DIR, "scheduler.json");
 const CHECK_EVERY_MS = 10 * 60 * 1000; // how often we check whether a refresh is due
 const DEFAULT_HOURS = parseFloat(process.env.REFRESH_EVERY_HOURS || "24");
 
@@ -37,7 +37,7 @@ const state = {
 // so existing data doesn't trigger an immediate full refresh
 if (!state.lastRun) {
   try {
-    const jobs = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "jobs.json"), "utf8"));
+    const jobs = JSON.parse(fs.readFileSync(path.join(DATA_DIR, "jobs.json"), "utf8"));
     const latest = jobs.reduce((max, j) => (j.lastSeenAt > max ? j.lastSeenAt : max), "");
     if (latest) state.lastRun = { startedAt: latest, finishedAt: latest, results: {} };
   } catch { /* no data yet: first refresh runs right away */ }

@@ -1,8 +1,7 @@
-require("../config/env");
+const { SESSION_PATH } = require("../config/env");
 const { chromium } = require("playwright");
 const path = require("path");
 
-const SESSION_PATH = path.join(__dirname, "..", "linkedin-session.json");
 
 const EMAIL = process.env.LINKEDIN_EMAIL;
 const PASSWORD = process.env.LINKEDIN_PASSWORD;
