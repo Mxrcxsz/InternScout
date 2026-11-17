@@ -82,10 +82,17 @@ Opens the dashboard at `http://localhost:5173`, pointed at the backend API.
 
 ## Deploying
 
-- **Backend**: Render or Railway (needs a persistent process for the cron +
-  SQLite file — use a persistent disk/volume, not ephemeral storage).
-
-  backend URL at build time).
+- **Frontend → Vercel.** `vercel.json` at the repo root builds `frontend/`
+  (it also works if the project's Root Directory is set to `frontend`). In
+  Vercel → Settings → Environment Variables, set `VITE_API_URL` to your
+  backend's URL for the Production environment, then redeploy (Vite bakes it in
+  at build time). Pushes to `main` deploy to production.
+- **Backend → not Vercel.** It needs a long-running process (scheduler),
+  Playwright/Chromium, a writable `data/` folder and the LinkedIn session file,
+  none of which work on serverless. Run it on a host with a persistent
+  disk (Render, Railway, a VPS) with `NODE_ENV=production`, or on your own
+  machine. Set `FRONTEND_ORIGIN` to the Vercel URL (comma-separate multiple
+  origins) so CORS allows the dashboard.
 
 ## Next: Telegram bot
 
